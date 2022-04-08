@@ -6,6 +6,7 @@ TagManager:
   tags:
   - EntryBullet
   - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX

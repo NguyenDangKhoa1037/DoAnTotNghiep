@@ -2852,6 +2852,8 @@ MonoBehaviour:
   _name: Boong
   level: 1
   damage: 3
+  bulletObject: {fileID: 416223731921341652, guid: 504514e77009ebf47ab27416185f2136, type: 3}
+  speedBullet: 5
 --- !u!50 &2007401319
 Rigidbody2D:
   serializedVersion: 4
