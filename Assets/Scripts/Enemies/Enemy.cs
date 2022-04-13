@@ -9,6 +9,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected string _name;
     [SerializeField] protected int level;
     [SerializeField] protected int damage;
+ 
     protected Transform player;
 
     private void Awake()
@@ -16,7 +17,16 @@ public abstract class Enemy : MonoBehaviour
         findPlayer();
     }
 
+    protected void runAwake() {
+        findPlayer();
+
+    }
+
+    protected void runStart() { }
+
     protected void findPlayer() {
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
+
+    protected void dead() { }
 }
