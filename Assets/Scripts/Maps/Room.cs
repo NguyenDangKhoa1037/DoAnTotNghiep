@@ -6,76 +6,158 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     [SerializeField] List<Door> listDoor = new List<Door>();
+    //[SerializeField] int width;
+    //[SerializeField] int height;
+    int index = 0;
     private RoomType type;
-    private float boundX;
-    private float boundY;
-
-    private void Awake()
-    {
-        boundX = GetComponent<SpriteRenderer>().bounds.size.x;
-        boundY = GetComponent<SpriteRenderer>().bounds.size.y;
-
-    }
+    public STATUS_ROOM status = STATUS_ROOM.IS_INIT;
+    [SerializeField] private GameObject walls;
     public RoomType Type
     {
         get => type;
         set => type = value;
     }
-    public Door addDirection(int dir, bool checkColider = false)
+    //public int Width { get => width; }
+    //public int Height { get => height; }
+    public List<Door> ListDoor { get => listDoor; set => listDoor = value; }
+    public int Index { get => index; set => index = value; }
+    public STATUS_ROOM Status { 
+        get => status;
+        set {
+            if (value == STATUS_ROOM.IS_STARTED) {
+                BoxCollider2D box = GetComponent<BoxCollider2D>();
+                if (box != null) box.isTrigger = true;
+                if (walls != null) walls.SetActive(true);
+                ListDoor.ForEach(e => e.Box.gameObject.SetActive(true));
+            }
+            if (value == STATUS_ROOM.IS_INIT) {
+                ListDoor.ForEach(e => e.Box.gameObject.SetActive(false));
+            }
+            if (value == STATUS_ROOM.IS_CLEAN) {
+                ListDoor.ForEach(e => e.gameObject.SetActive(false));
+            }
+            this.status = value;
+        }
+    }
+    private void Awake()
     {
-        for (int i = 0; i < listDoor.Count; i++)
+        status = STATUS_ROOM.IS_INIT;
+
+    }
+
+    public Door addDirection(int dir)
+    {
+        for (int i = 0; i < ListDoor.Count; i++)
         {
-            if (listDoor[i].Direction == dir && listDoor[i].Status == STATUS_DOOR.IS_HIDEN)
+            if (ListDoor[i].Direction == dir && ListDoor[i].Status == STATUS_DOOR.IS_HIDEN)
             {
-                Vector2 pos = listDoor[i].transform.GetChild(0).transform.position;
-                Collider2D rs = Physics2D.OverlapCircle(pos, 0.05f);
-                if (checkColider && rs != null)
-                    continue;
-                listDoor[i].Status = STATUS_DOOR.IS_BLOCKED;
-                return listDoor[i];
+                ListDoor[i].Status = STATUS_DOOR.IS_BLOCKED;
+                return ListDoor[i];
             }
             continue;
         }
         return null;
     }
-
-    public Room initRoom(Room roomTemplate, Transform room, int direction)
+    public Door pickDoor(int direction)
     {
-        Vector2 pos = room.position;
-        if (direction == DOOR_DIRECTION.LEFT) pos = getPostionLeftRoom(room);
-        if (direction == DOOR_DIRECTION.RIGHT) pos = getPostionRightRoom(room);
-        if (direction == DOOR_DIRECTION.TOP) pos = getPostionTopRoom(room);
-        if (direction == DOOR_DIRECTION.DOWN) pos = getPostionDownRoom(room);
-
-
-        Room r = Instantiate(roomTemplate, pos, Quaternion.identity);
-        return r;
+        Door door = null;
+        for (int i = 0; i < ListDoor.Count; i++)
+        {
+            if (ListDoor[i].Direction == direction) return ListDoor[i];
+        }
+        return door;
     }
-
-    private Vector2 getPostionRightRoom(Transform originalRoom)
+    public Door pickDoor(Door door)
     {
-        Vector2 pos = originalRoom.position;
-        pos.x += boundX + 0.1f;
+        for (int i = 0; i < ListDoor.Count; i++)
+        {
+            if (ListDoor[i].Direction == door.Direction) return ListDoor[i];
+        }
+        return null;
+    }
+    //[SerializeField] Room testRoom;
+    //[SerializeField] Door testDoor;
+    //[SerializeField] bool isDrawing = false;
+
+    //private void Start()
+    //{
+      
+    //}
+    //void OnDrawGizmos()
+    //{
+    //    if (!isDrawing) return;
+
+    //    Vector2 posColider = testDoor.getPoint();
+    //    if (testDoor.Direction == 1) posColider.x -= 1f;
+    //    if (testDoor.Direction == 4) posColider.x += 1f;
+    //    if (testDoor.Direction == 8) posColider.y += 1f;
+    //    if (testDoor.Direction == 2) posColider.y -= 1f;
+    //    Gizmos.DrawSphere(posColider, 0.1f);
+    //}
+    public Vector2 getPostionRoom(Door currentDoor)
+    {
+        Vector2 pos = Vector2.zero;
+        if (currentDoor.Direction == DOOR_DIRECTION.RIGHT) pos = getPostionRightRoom(currentDoor);
+        if (currentDoor.Direction == DOOR_DIRECTION.LEFT) pos = getPostionLeftRoom(currentDoor);
+        if (currentDoor.Direction == DOOR_DIRECTION.TOP) pos = getPostionTopRoom(currentDoor);
+        if (currentDoor.Direction == DOOR_DIRECTION.DOWN) pos = getPostionDownRoom(currentDoor);
+
+
+        Vector2 delta = (Vector2)transform.position - this.pickDoor(RoomUtils.OP_DIR(currentDoor.Direction)).getPoint();
+        if (currentDoor.Direction == 1)
+            pos.y += delta.y;
+
+        if (currentDoor.Direction == 4)
+            pos.y += delta.y;
+        if (currentDoor.Direction == 8)
+            pos.x += delta.x;
+
+        if (currentDoor.Direction == 2)
+            pos.x += delta.x;
         return pos;
     }
-    private Vector2 getPostionLeftRoom(Transform originalRoom)
+    private Vector2 getPostionLeftRoom(Door door)
     {
-        Vector2 pos = originalRoom.position;
-        pos.x += -(boundX + 0.1f);
-        return pos;
+        Door pickedDoor = pickDoor(RoomUtils.OP_DIR(door.Direction));
+        float left = pickedDoor.getPoint().x - transform.position.x;
+        return new Vector2(door.getPoint().x - left, door.getPoint().y);
+
     }
-    private Vector2 getPostionTopRoom(Transform originalRoom)
+    private Vector2 getPostionRightRoom(Door door)
     {
-        Vector2 pos = originalRoom.position;
-        pos.y += boundY + 0.1f;
-        return pos;
+        Door pickedDoor = pickDoor(RoomUtils.OP_DIR(door.Direction));
+        float right = transform.position.x - pickedDoor.getPoint().x;
+        return new Vector2(door.getPoint().x + right, door.getPoint().y);
     }
-    private Vector2 getPostionDownRoom(Transform originalRoom)
+    private Vector2 getPostionTopRoom(Door door)
     {
-        Vector2 pos = originalRoom.position;
-        pos.y += -(boundY + 0.1f);
-        return pos;
+        Door pickedDoor = pickDoor(RoomUtils.OP_DIR(door.Direction));
+        float top = transform.position.y - pickedDoor.getPoint().y;
+        return new Vector2(door.getPoint().x, door.getPoint().y + top);
     }
+    private Vector2 getPostionDownRoom(Door door)
+    {
+        Door pickedDoor = pickDoor(RoomUtils.OP_DIR(door.Direction));
+        float down = pickedDoor.getPoint().y - transform.position.y;
+        return new Vector2(door.getPoint().x, door.getPoint().y - down);
+    }
+    public float getWidth()
+    {
+        return getBoundCollider().x;
+    }
+
+    public float getHeight()
+    {
+        return getBoundCollider().y;
+    }
+
+    public Vector2 getBoundCollider()
+    {
+        BoxCollider2D box = GetComponent<BoxCollider2D>();
+        return new Vector2(box.bounds.size.x, box.bounds.size.y);
+    }
+
+   
 
 }
 
@@ -85,4 +167,12 @@ public enum RoomType
     NORMOAL,
     CHEST_ROOM,
     BOSS_ROOM
+}
+
+public enum STATUS_ROOM { 
+   IS_HIDEN,
+   IS_PLAYING,
+   IS_INIT,
+   IS_STARTED,
+   IS_CLEAN
 }

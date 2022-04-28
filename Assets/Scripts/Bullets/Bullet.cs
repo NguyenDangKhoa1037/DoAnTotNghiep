@@ -37,3 +37,22 @@ public class BulletInfo {
     public float Damge { get => damge; set => damge = value; }
     public float TimeCount { get => timeCount; set => timeCount = value; }
 }
+
+namespace Player {
+    public abstract class Bullet:MonoBehaviour {
+        [Header("Information")]
+        [SerializeField] protected float speed;
+        [SerializeField] protected int damage;
+
+
+        protected Player player;
+        protected Vector2 target;
+        protected bool isMoving = false;
+        public void config(Player player) {
+            this.player = player;
+        }
+
+        public abstract void move();
+
+    }
+}
