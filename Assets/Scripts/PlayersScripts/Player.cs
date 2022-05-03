@@ -56,6 +56,12 @@ namespace Player
         private void configSpirit() {
             spirit.config(this, transform.GetChild(1).GetChild(0).transform);
         }
+
+        public int attack() {
+            // tinh toan sat thuong
+            int damage = spirit.getDamage();
+            return damage;
+        }
     }
 
     public enum MovingPlayerClassName

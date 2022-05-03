@@ -39,6 +39,12 @@ public class BulletInfo {
 }
 
 namespace Player {
+
+    /// <summary>
+    /// Qua trinh ban dan gom 2 qua trinh. Chuan bi ban va ket thuc ban
+    /// Do do de Player va ShootingManager co the biet duoc du lieu cua bullet trong hai qua trinh nay
+    /// Ta con cho chung lien ket voi nhau. Thong qua Spirit ta can truyen Player va ShootingManager vao bullet do
+    /// </summary>
     public abstract class Bullet:MonoBehaviour {
         [Header("Information")]
         [SerializeField] protected float speed;
@@ -48,11 +54,16 @@ namespace Player {
         protected Player player;
         protected Vector2 target;
         protected bool isMoving = false;
-        public void config(Player player) {
+
+        protected IShoot shootingmanager;
+        public int Damage { get => damage; }
+
+        public virtual void config(Player player, IShoot shooting = null) {
             this.player = player;
+            shootingmanager = shooting;
         }
 
-        public abstract void move();
+        public abstract void startMove();
 
     }
 }

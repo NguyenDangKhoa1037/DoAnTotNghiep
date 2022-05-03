@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Lop dinh nghia cac hanh dong cua spirit. Dat biet, no con dinh nghia luon phuong thuc shoot cua player
+/// . Phuogn thuc nay chu yeu la tao 1 bullet va goi ham move cua bullet do ma thoi
+/// </summary>
 public class Spirit : MonoBehaviour
 {
     [Header("List Speed")]
@@ -178,11 +181,11 @@ public class Spirit : MonoBehaviour
         if (collision.CompareTag("Player")) return;
         State = INDLE_WAITING;
     }
-    public void shoot()
+    public void shoot(Player.IShoot shooting)
     {
         Player.Bullet bulletObj = Instantiate(currentBullet, transform.position, Quaternion.identity);
-        bulletObj.config(player);
-        bulletObj.move();
+        bulletObj.config(player, shooting);
+        bulletObj.startMove();
     }
 
     private void configBullet()
@@ -192,6 +195,9 @@ public class Spirit : MonoBehaviour
             case BulletType.NORMAL:
                 currentBullet = bullets[0];
                 break;
+            case BulletType.SPIRIT_POWER:
+                currentBullet = bullets[1];
+                break;
             default: throw new System.Exception("TYPE INVALID");
         }
     }
@@ -199,10 +205,15 @@ public class Spirit : MonoBehaviour
         trailIsHiden = hiden;
         trailRenderer.gameObject.SetActive(!hiden);
     }
+
+    public int getDamage() {
+        return currentBullet.Damage;
+    }
 }
 
 
 public enum BulletType
 {
-    NORMAL
+    NORMAL,
+    SPIRIT_POWER
 }

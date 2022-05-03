@@ -1,41 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class EnemyBullet : Bullet
+namespace Enemy
 {
-    private Rigidbody2D myBody;
-    [SerializeField] string tag;
-    private Vector2 target;
-    private bool isMove = false;
-    private void Awake()
+    public class EnemyBullet : Bullet
     {
-        myBody = GetComponent<Rigidbody2D>();
-    }
+        private Rigidbody2D myBody;
+        private Vector2 target;
+        private bool isMove = false;
+        private void Awake()
+        {
+            myBody = GetComponent<Rigidbody2D>();
+        }
 
-    public void config(BulletInfo info) {
-        this.info = info;
-    }
+        public void config(BulletInfo info)
+        {
+            this.info = info;
+        }
 
-    protected override BulletInfo loadInfo()
-    {
-        return null;
-    }
+        protected override BulletInfo loadInfo()
+        {
+            return null;
+        }
 
-    private void Update()
-    {
-        transform.Translate(target*this.info.Speed*Time.deltaTime);
-    }
+        private void Update()
+        {
+            transform.Translate(target * this.info.Speed * Time.deltaTime);
+        }
 
-    protected override void move(Vector2 target)
-    {
-        this.target = target;
-        isMove = true;
-    }
+        protected override void move(Vector2 target)
+        {
+            this.target = target;
+            isMove = true;
+        }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag(tag)) return ; 
-        Destroy(gameObject);
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.CompareTag(tag)) return;
+            Destroy(gameObject);
+        }
     }
 }
