@@ -7,18 +7,29 @@ public class Slime : Enemy.Enemy
 {
     [Header("Information for Slime")]
     [SerializeField] private float distanceWithPlayer = 4f;
+    [SerializeField] float distancePlayerForJump = 1f;
+    [SerializeField] float speedJump;
     [SerializeField] float speedWalking;
     [SerializeField] float sleep = 0.7f;
     private float countSleep;
     private Vector2 target;
-    private int state = 0;  // 
+    public int state = 0;  // 
     private Animator ani;
+    private bool isJump = false;
+    private float maxTimeForState = 1f;
+    private float countTimeState = 1f;
     public int State
     {
-        get => state; 
+        get => state;
         set
         {
-            if (value == 0) ani.SetBool("isMoving", false);
+            if (value == 0)
+            {
+                ani.SetBool("isMoving", false);
+                target = Vector2.zero;
+                countTimeState = maxTimeForState;
+            }
+
             else ani.SetBool("isMoving", true);
             state = value;
         }
@@ -28,30 +39,42 @@ public class Slime : Enemy.Enemy
     {
         this.runAwake();
         countSleep = sleep;
+        speed += UnityEngine.Random.Range(-0.5f, 0.5f);
+        speedJump += UnityEngine.Random.Range(0f, 0.3f);
+        speedWalking += UnityEngine.Random.Range(0f, 0.3f);
+        distancePlayerForJump += UnityEngine.Random.Range(-0.3f, 0.3f);
+        distanceWithPlayer += UnityEngine.Random.Range(0f, 0.5f);
         ani = GetComponent<Animator>();
     }
 
 
     private void Update()
     {
-        if (Vector2.Distance(transform.position, target) <= 0.1f)
+        float distanceTarget = Vector2.Distance(transform.position, target);
+        float distancePlayer = Vector2.Distance(transform.position, player.transform.position);
+        if (State != 3 && State == 1 && distanceTarget <= 0.1f)
         {
             State = 0;
             target = Vector2.zero;
         }
-        else if (Vector2.Distance(transform.position, player.transform.position) <= 0.1)
+        //else if (State != 3 && countTimeState == 0 && distancePlayer <= 0.1)
+        //{
+        //    State = 0;
+        //    target = Vector2.zero;
+        //}
+        else if (State == 2 && countTimeState == 0 && distancePlayer <= distancePlayerForJump)
         {
-            State = 0;
-            target = Vector2.zero;
+            State = 3;
+            ani.Play("Slime_jump");
+
         }
-        else if(Vector2.Distance(transform.position, player.transform.position) <= distanceWithPlayer)
+        else if (State != 3 && countTimeState == 0 &&  distancePlayer <= distanceWithPlayer)
         {
             State = 2;
             target = Vector2.zero;
 
         }
-
-        else if (State == 2 && Vector2.Distance(transform.position, player.transform.position) > distanceWithPlayer)
+        else if (State == 2 && distancePlayer > distanceWithPlayer)
         {
             State = 0;
             target = Vector2.zero;
@@ -72,9 +95,32 @@ public class Slime : Enemy.Enemy
         {
             randomMMoving();
         }
-
+        else if (State == 3 && isJump)
+        {
+            jump();
+        }
+        if(countTimeState > 0)
+        countTimeState-= Time.deltaTime;
+        if (countTimeState <= 0) {
+            countTimeState = 0;
+        }
     }
 
+    private void jump()
+    {
+        Vector2 dir = target - (Vector2)transform.position;
+        dir.Normalize();
+        transform.Translate(speedJump * Time.deltaTime * dir);
+    }
+    public void startJump() {
+        target = player.gameObject.transform.position;
+        isJump = true;
+    }
+    public void endJump() {
+        isJump = false;
+        State = 0;
+        ani.Play("Slime_indle");
+    }
 
     private void indle()
     {
@@ -97,19 +143,24 @@ public class Slime : Enemy.Enemy
     {
         Vector2 dir = player.transform.position - transform.position;
         dir.Normalize();
-        transform.Translate(dir * speed * Time.deltaTime);
+        transform.Translate(speed * Time.deltaTime * dir);
     }
 
     void randomMMoving()
     {
         Vector2 dir = target - (Vector2)transform.position;
-        transform.Translate(dir * speedWalking * Time.deltaTime);
+        transform.Translate(speedWalking * Time.deltaTime * dir);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void handleTriggerEnter(Collider2D collision)
     {
-        if (State != 0 && !collision.gameObject.CompareTag("Player")) {
+        base.handleTriggerEnter(collision);
+        if (State != 0 && !collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("Spirit") && !collision.gameObject.CompareTag("Enemy"))
+        {
             State = 0;
+        }
+        if (collision.gameObject.CompareTag("Player")) {
+            player.getDamaged(this.damage);
         }
     }
 }

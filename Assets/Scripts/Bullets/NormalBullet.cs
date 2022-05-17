@@ -7,11 +7,11 @@ namespace Player
     public class NormalBullet : Bullet
     {
         private Vector2 direction;
-        public override void startMove()
+        public override void startMove(Vector2 mousePostion)
         {
             this.isMoving = true;
-            direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-            direction.Normalize();
+            this.direction = mousePostion - (Vector2)player.transform.position ;
+            this.direction.Normalize();
             Destroy(gameObject, 5f);
             
         }

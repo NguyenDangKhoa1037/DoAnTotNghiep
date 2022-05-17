@@ -36,7 +36,7 @@ public class Spirit : MonoBehaviour
     private float sleepTime = 1f;
     private bool trailIsHiden = false;
     private TrailRenderer trailRenderer;
-
+    private bool isSwitchRoom = false;
     #region properties need config by Player instance
     // properties need config by Player instance
     private Player.Player player;
@@ -181,11 +181,11 @@ public class Spirit : MonoBehaviour
         if (collision.CompareTag("Player")) return;
         State = INDLE_WAITING;
     }
-    public void shoot(Player.IShoot shooting)
+    public void shoot(Player.IShoot shooting, Vector2 mousePostion)
     {
         Player.Bullet bulletObj = Instantiate(currentBullet, transform.position, Quaternion.identity);
         bulletObj.config(player, shooting);
-        bulletObj.startMove();
+        bulletObj.startMove(mousePostion);
     }
 
     private void configBullet()
@@ -202,10 +202,17 @@ public class Spirit : MonoBehaviour
         }
     }
     private void setHiddenTrail(bool hiden) {
+        if (!hiden && isSwitchRoom) return;
         trailIsHiden = hiden;
         trailRenderer.gameObject.SetActive(!hiden);
     }
-
+    public void switchRoom(Vector2 pos) {
+        setHiddenTrail(true);
+        State = INDLE_WAITING;
+        isSwitchRoom = true;
+        transform.position = pos;
+        isSwitchRoom = false;
+    }
     public int getDamage() {
         return currentBullet.Damage;
     }

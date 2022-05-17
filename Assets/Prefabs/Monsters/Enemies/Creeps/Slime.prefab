@@ -443,9 +443,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingLayerID: -1785612757
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.6156863}
   m_FlipX: 0
@@ -482,7 +482,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8044782967648334162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 8044782967693144047}
@@ -525,8 +525,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1785612757
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 0.34096816, g: 0.7075472, b: 0.28479883, a: 1}
@@ -586,7 +586,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.04697299}
@@ -644,11 +644,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14490a40807240749b98ce2e07cb3051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.28
+  speed: 2
   hp: 70
   _name: Slime
   level: 1
-  damage: 3
-  distanceWithPlayer: 0.1
-  speedWalking: 2
+  damage: 20
+  effectOnDead: {fileID: 9116716978473076380, guid: 6b2a795be0b6be142b102e4cbaef1d67, type: 3}
+  distanceWithPlayer: 6
+  distancePlayerForJump: 2.5
+  speedJump: 3
+  speedWalking: 0.7
   sleep: 1
+  state: 0

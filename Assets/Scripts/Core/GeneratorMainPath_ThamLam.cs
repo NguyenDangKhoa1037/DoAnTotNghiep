@@ -74,7 +74,6 @@ public class GeneratorMainPath_ThamLam : MonoBehaviour, GeneratorMainPath
             yield return new WaitForFixedUpdate();
             // B4
             bool fit = RandomGenerationMapUtils.CheckingSpaceFitToRoom.checking(newRoom, currentDoor);
-            //print(fit + "  - " + newRoom.name);
             if (!fit) { Destroy(newRoom.gameObject); i--; continue; };
 
             // B5
@@ -127,7 +126,7 @@ namespace RandomGenerationMapUtils
             if (colider != null)
             {
                 //Debug.Log("W: " + room.getWidth() + ", H:" + room.getHeight()+ " POS "+posColider);
-
+                //Debug.Log(colider.name);
                 Room getRoom = colider.GetComponent<Room>();
                 return getRoom.Index == room.Index;
             }

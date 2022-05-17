@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Spirit
   - MyBullet
+  - BoundCinemachine
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Water
   - UI
   - Room
-  - 
+  - Player
   - 
   - 
   - 
@@ -45,4 +46,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Layer_1
+    uniqueID: 2437976207
+    locked: 0
+  - name: Layer_2
+    uniqueID: 2509354539
     locked: 0

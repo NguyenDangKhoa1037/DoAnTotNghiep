@@ -38,14 +38,28 @@ public class RandomGenerationMap : MonoBehaviour
     }
 
     IEnumerator generate() {
+        Debug.Log("BEGIN GEN MAIN PATH");
         yield return GenMainPath.generate(configLevel);
+        Debug.Log("WAITING");
         yield return new WaitForSeconds(2f);
+        Debug.Log("BEGIN GEN OTHER PATH");
         yield return genOtherPath.generate(configLevel, configLevel.Rooms);
-        Debug.Log("STARTED");
+        Debug.Log("COMPLETE");
+        this.gameObject.SetActive(false);
         configLevel.FinishRooms.ForEach(e => {
             e.Status = STATUS_ROOM.IS_STARTED;
         });
+
+        DemoMap.instance.begin(configLevel.FinishRooms) ;
+        configLevel.FinishRooms.ForEach(e =>
+        {
+            BoxCollider2D box = e.GetComponent<BoxCollider2D>();
+            box.enabled = false;
+
+        });
+    
     }
+
 }
 
 [SerializeField]

@@ -14,19 +14,16 @@ namespace Player
         {
             myRigidbody = GetComponent<Rigidbody2D>();
         }
-        public override void startMove()
+        public override void startMove(Vector2 mousePostion)
         {
             managerShooting.onBeginShoot(new ShootingMassage(isLeft ? "1" : "0", ""));
-            target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            target = mousePostion;
             this.isMoving = true;
+            
         }
 
         private void FixedUpdate()
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                startMove();
-            }
             if (isMoving)
             {
                 moving();
@@ -60,10 +57,9 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Spirit") ||
-                collision.CompareTag("Player") ||
-                 collision.CompareTag("MyBullet")
-             ) return;
+            if (collision.CompareTag("Enemy") ||
+                collision.CompareTag("Wall") 
+             )
             Destroy(gameObject);
         }
 

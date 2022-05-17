@@ -118,7 +118,7 @@ public class GeneratorOtherPath_V1 : MonoBehaviour, GeneratorOtherPath
         door1.Status = STATUS_DOOR.IS_BLOCKED;
         door2.Status = STATUS_DOOR.IS_BLOCKED;
 
-        door1.startLine();
+        //door1.startLine();
 
     }
 }

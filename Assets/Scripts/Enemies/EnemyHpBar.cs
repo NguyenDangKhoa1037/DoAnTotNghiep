@@ -24,16 +24,21 @@ public class EnemyHpBar : MonoBehaviour
             Vector3 offset = new Vector3(0f, 0.7f, 0f);
             hpBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + offset);
         }
-        high = new Color32(104, 219, 142,255);
+       
+        high = new Color32(104, 219, 142, 255);
         low = new Color32(217, 69, 44, 255);
         count = timeHiden;
     }
-    public void configMaxHP(int Hp) {
+    public void configMaxHP(int Hp)
+    {
         hpBar.maxValue = Hp;
         setHp(Hp);
+        hpBar.gameObject.SetActive(false);
+
     }
 
-    public void setHp(int Hp) {
+    public void setHp(int Hp)
+    {
         hpBar.value = Hp;
         hpBar.fillRect.GetComponent<Image>().color = Color.Lerp(low, high, hpBar.normalizedValue);
         hpBar.gameObject.SetActive(true);
@@ -50,9 +55,10 @@ public class EnemyHpBar : MonoBehaviour
 
         }
         count -= Time.deltaTime;
-        if (count < 0) {
+        if (count < 0)
+        {
             hpBar.gameObject.SetActive(false);
         }
-        
+
     }
 }

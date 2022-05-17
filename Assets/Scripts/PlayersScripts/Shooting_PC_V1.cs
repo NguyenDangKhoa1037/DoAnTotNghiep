@@ -12,7 +12,7 @@ namespace Player {
     public class Shooting_PC_V1 : IShoot
     {
         private float countdown;
-        
+        private Vector2 mousePostion;
         private bool isShooting = false;
         private void LateUpdate()
         {
@@ -34,7 +34,7 @@ namespace Player {
             {
                 if (isShooting)
                 {
-                    spirit.shoot(this);
+                    spirit.shoot(this, mousePostion);
                 }
                 else if (!isShooting)
                 {
@@ -46,8 +46,14 @@ namespace Player {
         }
 
         private void rotatePoint() {
-            Vector2 pos = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-            float deg = Mathf.Atan2(pos.y, pos.x) * Mathf.Rad2Deg;
+
+            mousePostion = Camera.main.ScreenToWorldPoint( Input.mousePosition) + DemoMap.instance.Cinemachine.transform.position;
+            Vector2 direction = (Vector3)mousePostion - transform.position;
+            float deg = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            //print(mousePos);
+            //print(Camera.main.transform.position);
+            //print(Camera.main.ScreenToWorldPoint(mousePos));
+            //print("-----"); 
             PointSpiritInPlayer.transform.rotation = Quaternion.Euler(0, 0, deg);
         }
 
@@ -59,6 +65,7 @@ namespace Player {
         public override void onEndShoot(ShootingMassage massage)
         {
             this.massage = massage;
+            mousePostion = Vector2.zero;
         }
     }
 }

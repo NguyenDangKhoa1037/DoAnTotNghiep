@@ -15,8 +15,10 @@ namespace Enemy
         [SerializeField] protected int damage;
         [SerializeField] protected GameObject effectOnDead;
 
+
         protected Player.Player player;
         private EnemyHpBar hpBar;
+        private Room myRoom;
         #region Setter nad getter
         protected int Hp
         {
@@ -81,20 +83,30 @@ namespace Enemy
             GameObject effect = Instantiate(effectOnDead,transform.position,Quaternion.identity);
             configColorEffect(effect);
             ShakeCamera.instance.shake();
+            myRoom.Enemies.Remove(this);
             Destroy(gameObject);
+        }
+
+        protected virtual void handleTriggerEnter(Collider2D collision) {
+           
+            if (collision.CompareTag("MyBullet"))
+            {
+                OnGetDamaged(collision.gameObject);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("MyBullet")) {
-                OnGetDamaged(collision.gameObject);   
-            }
+            handleTriggerEnter(collision);
         }
 
         virtual protected void OnGetDamaged(GameObject bullet) {
             int damage = player.attack();
             getDamaged(damage);
             Destroy(bullet);
+        }
+        virtual public void OnInited(Room room) {
+            myRoom = room;
         }
     }
 }

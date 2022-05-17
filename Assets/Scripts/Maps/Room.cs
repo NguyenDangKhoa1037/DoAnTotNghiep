@@ -6,12 +6,18 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     [SerializeField] List<Door> listDoor = new List<Door>();
-    //[SerializeField] int width;
-    //[SerializeField] int height;
+    [SerializeField] private GameObject wall_colides;
+    [SerializeField] private GameObject[] furnitures;
+    [SerializeField] private Collider2D cinemachineBound;
+    [SerializeField] private int sizeEnemies = 1;
+   
     int index = 0;
     private RoomType type;
-    public STATUS_ROOM status = STATUS_ROOM.IS_INIT;
-    [SerializeField] private GameObject walls;
+    private List<Enemy.Enemy> enemies = new List<Enemy.Enemy>();
+    private int waves;
+    private GameObject furniture = null;
+    STATUS_ROOM status = STATUS_ROOM.IS_INIT;
+
     public RoomType Type
     {
         get => type;
@@ -25,24 +31,48 @@ public class Room : MonoBehaviour
         get => status;
         set {
             if (value == STATUS_ROOM.IS_STARTED) {
-                BoxCollider2D box = GetComponent<BoxCollider2D>();
-                if (box != null) box.isTrigger = true;
-                if (walls != null) walls.SetActive(true);
-                ListDoor.ForEach(e => e.Box.gameObject.SetActive(true));
+                listDoor.ForEach(e =>{
+                    e.Status = STATUS_DOOR.IS_READY;
+                });
+                wall_colides.SetActive(true);
+                int index = Random.Range(0, furnitures.Length);
+                if(furniture == null)
+                {
+                    furniture = Instantiate(furnitures[index], transform.position, Quaternion.identity);
+                    furniture.transform.SetParent(transform);
+                }
+                
             }
             if (value == STATUS_ROOM.IS_INIT) {
-                ListDoor.ForEach(e => e.Box.gameObject.SetActive(false));
+               
+                print("INIT");
             }
             if (value == STATUS_ROOM.IS_CLEAN) {
-                ListDoor.ForEach(e => e.gameObject.SetActive(false));
+                ListDoor.ForEach(e => {
+                    if (e.isActive())
+                        e.Status = STATUS_DOOR.IS_OPENED;
+                });
             }
             this.status = value;
         }
     }
+
+    public Collider2D CinemachineBound { get => cinemachineBound; set => cinemachineBound = value; }
+    public List<Enemy.Enemy> Enemies { get => enemies; set => enemies = value; }
+    private void Start()
+    {
+        for (int i = 0; i < sizeEnemies; i++)
+        {
+            var prefabs = MapController.instances.RandomEnemies.Enemies;
+            enemies.Add(prefabs[Random.Range(0, prefabs.Length)]);
+
+        }
+    }
+
     private void Awake()
     {
+        wall_colides.SetActive(false);
         status = STATUS_ROOM.IS_INIT;
-
     }
 
     public Door addDirection(int dir)
@@ -75,25 +105,7 @@ public class Room : MonoBehaviour
         }
         return null;
     }
-    //[SerializeField] Room testRoom;
-    //[SerializeField] Door testDoor;
-    //[SerializeField] bool isDrawing = false;
-
-    //private void Start()
-    //{
-      
-    //}
-    //void OnDrawGizmos()
-    //{
-    //    if (!isDrawing) return;
-
-    //    Vector2 posColider = testDoor.getPoint();
-    //    if (testDoor.Direction == 1) posColider.x -= 1f;
-    //    if (testDoor.Direction == 4) posColider.x += 1f;
-    //    if (testDoor.Direction == 8) posColider.y += 1f;
-    //    if (testDoor.Direction == 2) posColider.y -= 1f;
-    //    Gizmos.DrawSphere(posColider, 0.1f);
-    //}
+ 
     public Vector2 getPostionRoom(Door currentDoor)
     {
         Vector2 pos = Vector2.zero;
@@ -157,7 +169,8 @@ public class Room : MonoBehaviour
         return new Vector2(box.bounds.size.x, box.bounds.size.y);
     }
 
-   
+    public void begin() { 
+    }
 
 }
 

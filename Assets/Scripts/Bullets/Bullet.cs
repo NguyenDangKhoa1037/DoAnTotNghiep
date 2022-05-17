@@ -52,7 +52,8 @@ namespace Player {
 
 
         protected Player player;
-        protected Vector2 target;
+        // TOA DO HOAC HUONG MA VIEN DAN DUOC NHAM DEN
+        protected Vector2 target; 
         protected bool isMoving = false;
 
         protected IShoot shootingmanager;
@@ -61,9 +62,10 @@ namespace Player {
         public virtual void config(Player player, IShoot shooting = null) {
             this.player = player;
             shootingmanager = shooting;
+
         }
 
-        public abstract void startMove();
+        public abstract void startMove(Vector2 target);
 
     }
 }
