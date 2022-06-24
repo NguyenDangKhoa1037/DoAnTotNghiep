@@ -1932,9 +1932,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7177242788249727955}
   - component: {fileID: 364194113965955641}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door_colider_Le
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5511,9 +5511,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1534587851306113474}
   - component: {fileID: 6340903501436859905}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door_colider_Up
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7158,9 +7158,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1304849074319821679}
   - component: {fileID: 7405776666761479528}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door_colider_Do
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7324,8 +7324,8 @@ MonoBehaviour:
   furnitures:
   - {fileID: 4732049369033322751, guid: 3c51912449a67b84fb1b35271793ed49, type: 3}
   - {fileID: 8904021293230655161, guid: 614be7dec298d1e4ab2603311b92a007, type: 3}
-  cinemachineBound: {fileID: 5259233449579756437}
-  sizeEnemies: 1
+  cinemachineBound: {fileID: 0}
+  sizeEnemies: 2
 --- !u!114 &7925291527197471568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7342,67 +7342,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   isDraw: 0
---- !u!1 &5538035052308054860
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5864654725827431100}
-  - component: {fileID: 5259233449579756437}
-  m_Layer: 0
-  m_Name: boundCinemachine
-  m_TagString: BoundCinemachine
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5864654725827431100
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5538035052308054860}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4525718513664316116}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &5259233449579756437
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5538035052308054860}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.8153107, y: 10.042034}
-      - {x: -9.998748, y: 10.02822}
-      - {x: -9.99755, y: -9.988189}
-      - {x: 12.000738, y: -9.986149}
-      - {x: 11.996922, y: 10.012252}
 --- !u!1 &6107861634445349783
 GameObject:
   m_ObjectHideFlags: 0
@@ -8093,9 +8032,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8061804041106100210}
   - component: {fileID: 7260216346441966776}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door_colider_Ri
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8247,10 +8186,9 @@ GameObject:
   - component: {fileID: 800029190765235701}
   - component: {fileID: 5905622413611218864}
   - component: {fileID: 3480750447696268547}
-  - component: {fileID: 3235071038568098622}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_colider
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8265,8 +8203,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 5864654725827431100}
+  m_Children: []
   m_Father: {fileID: 2279574042942474048}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8477,30 +8414,4 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 2.392558, y: 10.026056}
-  m_EdgeRadius: 0
---- !u!61 &3235071038568098622
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9165610645140742764}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.98977184, y: -0.05860901}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 20.431383, y: 18.213165}
   m_EdgeRadius: 0

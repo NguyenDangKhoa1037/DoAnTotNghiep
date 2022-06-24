@@ -17,11 +17,16 @@ namespace RandomGenerationMap_V2
 
         private void Awake()
         {
+            resetAwake();
+        }
+        private void resetAwake()
+        {
             if (instance == null) instance = this;
             configLevel = new ConfigLevel(numberOfRoom, templates);
             genMainPath = gameObject.AddComponent<GeneratorMainPath_V1>();
             genOtherPath = gameObject.AddComponent<GeneratorOtherPath_V2>();
         }
+
         void Start()
         {
             genMainPath.generate(configLevel);
@@ -35,17 +40,16 @@ namespace RandomGenerationMap_V2
             configLevel.Rooms.ForEach(e =>
             {
                 e.Status = STATUS_ROOM.IS_STARTED;
-            });
-            configLevel.Rooms.ForEach(e =>
-            {
                 e.gameObject.SetActive(false);
             });
-
+     
             DemoMap.instance.begin(configLevel.Rooms);
+            configLevel.Rooms[configLevel.Rooms.Count - 1].Type = RoomType.BOSS_ROOM;
             configLevel.Rooms.ForEach(e =>
             {
                 BoxCollider2D box = e.GetComponent<BoxCollider2D>();
-                box.enabled = false;
+                Destroy(e.GetComponent<Rigidbody2D>());
+                Destroy(box);
 
             });
             

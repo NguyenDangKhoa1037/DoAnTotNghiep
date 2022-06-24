@@ -155,12 +155,9 @@ public class Slime : Enemy.Enemy
     protected override void handleTriggerEnter(Collider2D collision)
     {
         base.handleTriggerEnter(collision);
-        if (State != 0 && !collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("Spirit") && !collision.gameObject.CompareTag("Enemy"))
-        {
-            State = 0;
-        }
+        
         if (collision.gameObject.CompareTag("Player")) {
-            player.getDamaged(this.damage);
+            player.getDamaged(this.Damage);
         }
     }
 }

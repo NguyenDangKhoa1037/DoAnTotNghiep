@@ -9,11 +9,11 @@ public class Room : MonoBehaviour
     [SerializeField] private GameObject wall_colides;
     [SerializeField] private GameObject[] furnitures;
     [SerializeField] private Collider2D cinemachineBound;
-    [SerializeField] private int sizeEnemies = 1;
+
    
     int index = 0;
     private RoomType type;
-    private List<Enemy.Enemy> enemies = new List<Enemy.Enemy>();
+    [SerializeField] private List<Enemy.Enemy> enemies = new List<Enemy.Enemy>();
     private int waves;
     private GameObject furniture = null;
     STATUS_ROOM status = STATUS_ROOM.IS_INIT;
@@ -35,8 +35,8 @@ public class Room : MonoBehaviour
                     e.Status = STATUS_DOOR.IS_READY;
                 });
                 wall_colides.SetActive(true);
-                int index = Random.Range(0, furnitures.Length);
-                if(furniture == null)
+                int index = furnitures.Length == 0 ? -1 : Random.Range(0, furnitures.Length);
+                if(index != -1 && furniture == null)
                 {
                     furniture = Instantiate(furnitures[index], transform.position, Quaternion.identity);
                     furniture.transform.SetParent(transform);
@@ -61,7 +61,7 @@ public class Room : MonoBehaviour
     public List<Enemy.Enemy> Enemies { get => enemies; set => enemies = value; }
     private void Start()
     {
-        for (int i = 0; i < sizeEnemies; i++)
+        for (int i = 0; i < DemoMap.instance.getCountEnemies(); i++)
         {
             var prefabs = MapController.instances.RandomEnemies.Enemies;
             enemies.Add(prefabs[Random.Range(0, prefabs.Length)]);
@@ -170,6 +170,11 @@ public class Room : MonoBehaviour
     }
 
     public void begin() { 
+    }
+
+    public void destroyEnemy(Enemy.Enemy enemy) {
+        enemies.Remove(enemy);
+        if (Enemies.Count <= 0) this.Status = STATUS_ROOM.IS_CLEAN;
     }
 
 }

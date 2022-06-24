@@ -12,6 +12,7 @@ public class ChangeAnimation : MonoBehaviour
     }
 
     public void play(string name) {
+
         animtor.Play(name);
     }
 }

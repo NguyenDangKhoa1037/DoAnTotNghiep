@@ -12,13 +12,14 @@ namespace Enemy
         [SerializeField] protected int hp;
         [SerializeField] protected string _name;
         [SerializeField] protected int level;
-        [SerializeField] protected int damage;
+        [SerializeField] private int damage;
+
         [SerializeField] protected GameObject effectOnDead;
 
 
         protected Player.Player player;
-        private EnemyHpBar hpBar;
-        private Room myRoom;
+        protected EnemyHpBar hpBar;
+        protected Room myRoom;
         #region Setter nad getter
         protected int Hp
         {
@@ -37,13 +38,15 @@ namespace Enemy
             }
         }
 
+        public int Damage { get => damage; set => damage = value; }
+
         #endregion
         private void Awake()
         {
             runAwake();
         }
 
-        protected void runAwake()
+        protected virtual void runAwake()
         {
             findPlayer();
             hpBar = GetComponent<EnemyHpBar>();
@@ -60,7 +63,8 @@ namespace Enemy
 
         private void configColorEffect(GameObject effect)
         {
-            Color myColor = transform.GetChild(0).GetComponent<SpriteRenderer>().color;
+            SpriteRenderer sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+            Color myColor = sprite != null ? sprite.color : GetComponent<SpriteRenderer>().color;
             int childs = effect.transform.GetChild(0).childCount;
             for (int i = 0; i < childs; i++) {
                 SpriteRenderer render = effect.transform.GetChild(0).GetChild(i).GetComponent<SpriteRenderer>();
@@ -79,11 +83,12 @@ namespace Enemy
             Hp = HpClone;
         }
 
-        protected void OnDead() {
+       virtual protected void OnDead() {
             GameObject effect = Instantiate(effectOnDead,transform.position,Quaternion.identity);
             configColorEffect(effect);
             ShakeCamera.instance.shake();
             myRoom.Enemies.Remove(this);
+            myRoom.destroyEnemy(this);
             Destroy(gameObject);
         }
 

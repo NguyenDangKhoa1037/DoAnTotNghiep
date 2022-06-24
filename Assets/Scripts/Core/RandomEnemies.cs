@@ -5,6 +5,8 @@ using UnityEngine;
 public class RandomEnemies : MonoBehaviour
 {
     [SerializeField] private Enemy.Enemy[] prefabs;
+    [SerializeField] private Demon demon;
+    [SerializeField] private BlueFire blueFire;
     [SerializeField] private GameObject genEnemyEffect;
     [SerializeField] private float timeWarningGenEnemies;
     [SerializeField] private GameObject FIX;
@@ -14,6 +16,7 @@ public class RandomEnemies : MonoBehaviour
     private float timeCountWarning;
     private bool isCounting = false;
     private List<Enemy.Enemy> roomEnemies;
+    private List<Enemy.Enemy> bosses = new List<Enemy.Enemy>();
     public Enemy.Enemy[] Enemies { get => prefabs; set => prefabs = value; }
 
     private void Awake()
@@ -28,6 +31,8 @@ public class RandomEnemies : MonoBehaviour
             effects[i].transform.SetParent(FIX.transform);
         }
 
+        bosses.Add(blueFire);
+        bosses.Add(demon);
     }
 
 
@@ -41,28 +46,36 @@ public class RandomEnemies : MonoBehaviour
     }
     public void genEnemies(Room currentRoom)
     {
-        if (currentRoom.Enemies.Count <= 0) return;
-        this.currentRoom = currentRoom;
-        List<Enemy.Enemy> enemies = new List<Enemy.Enemy>();
-        
-        for (int i = 0; i < currentRoom.Enemies.Count; i++)
+        if (currentRoom.Type == RoomType.NORMOAL)
         {
-            Vector2 pos = currentRoom.transform.position;
-            // Random trong khoang -5,-5 den 5,5
-            pos.x += Random.Range(-5, 5f);
-            pos.y += Random.Range(-5, 5f);
-            var enemy = Instantiate(currentRoom.Enemies[i], pos, Quaternion.identity);
-            enemy.gameObject.SetActive(false);
-            enemy.transform.SetParent(MONSTER.transform);
-            enemies.Add(enemy);
-            enemy.OnInited(currentRoom);
-            GameObject effect = pickEffect();
-            effect.transform.position = pos;
-            effect.SetActive(true);
+            if (currentRoom.Enemies.Count <= 0) return;
+            this.currentRoom = currentRoom;
+            List<Enemy.Enemy> enemies = new List<Enemy.Enemy>();
+
+            for (int i = 0; i < currentRoom.Enemies.Count; i++)
+            {
+                Vector2 pos = currentRoom.transform.position;
+                // Random trong khoang -5,-5 den 5,5
+                pos.x += Random.Range(-5, 5f);
+                pos.y += Random.Range(-5, 5f);
+                var enemy = Instantiate(currentRoom.Enemies[i], pos, Quaternion.identity);
+                enemy.gameObject.SetActive(false);
+                enemy.transform.SetParent(MONSTER.transform);
+                enemies.Add(enemy);
+                enemy.OnInited(currentRoom);
+                GameObject effect = pickEffect();
+                effect.transform.position = pos;
+                effect.SetActive(true);
+            }
+            roomEnemies = enemies;
+            currentRoom.Enemies = enemies;
+            isCounting = true;
         }
-        roomEnemies = enemies;
-        currentRoom.Enemies = enemies;
-        isCounting = true;
+        else {
+            int index = Random.Range(0, 2);
+            Enemy.Enemy boss=  Instantiate(bosses[index], currentRoom.transform.position, Quaternion.identity);
+            currentRoom.Enemies.Add(boss);
+        }
     }
 
     private void Update()

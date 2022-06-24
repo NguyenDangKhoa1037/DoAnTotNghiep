@@ -6,7 +6,7 @@ using UnityEngine;
 public class Dom : MonoBehaviour
 {
     [SerializeField] float speed = 2f;
-    [SerializeField] EnemyBullet bulletTemplate;
+    private  GameObject bulletTemplate;
     [SerializeField] float sleep;
     [SerializeField] float distanceWithPlayer;
     [SerializeField] float defaultTimeForShooting;
@@ -68,11 +68,11 @@ public class Dom : MonoBehaviour
     {
         timeForShooting -= Time.deltaTime;
         if (timeForShooting <= 0) {
-            EnemyBullet bullet = Instantiate(bulletTemplate, transform.position, Quaternion.identity);
-            Vector2 dir = player.position - transform.position;
-            dir.Normalize();
-            bullet.setDirection(dir);
-            timeForShooting = defaultTimeForShooting;
+            //EnemyBullet bullet = Instantiate(bulletTemplate, transform.position, Quaternion.identity);
+            //Vector2 dir = player.position - transform.position;
+            //dir.Normalize();
+            //bullet.setDirection(dir);
+            //timeForShooting = defaultTimeForShooting;
         }
     }
 

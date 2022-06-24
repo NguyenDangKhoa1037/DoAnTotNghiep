@@ -7,12 +7,25 @@ using UnityEngine;
 public class DemoMap : MonoBehaviour
 {
     [SerializeField] Player.Player player;
-    [SerializeField] Spirit spirit;
-    [SerializeField] Cinemachine.CinemachineVirtualCamera cinemachine;
+    [SerializeField] GameObject spirit;
+    [SerializeField] MovingCamera movingCam;
+    [SerializeField] GameObject loading;
     private List<Room> rooms;
     private Room currentRoom;
     public static DemoMap instance;
 
+    public void nextLevel()
+    {
+        GameInfo.instance.Level++;
+    }
+    public int getCountEnemies() {
+        return GameInfo.instance.Level + 2;
+    }
+
+    public int getCountRoom()
+    {    
+        return 4 + GameInfo.instance.Level;
+    }
     public List<Room> Rooms
     {
         get => rooms; set
@@ -28,38 +41,35 @@ public class DemoMap : MonoBehaviour
             currentRoom = value;
             if (currentRoom != null) currentRoom.gameObject.SetActive(true);
             
-            Cinemachine.Follow = currentRoom.transform;
-            Cinemachine.CinemachineConfiner confiner = Cinemachine.GetComponent<Cinemachine.CinemachineConfiner>();
-            confiner.m_BoundingShape2D = currentRoom.CinemachineBound;
+            movingCam.Target = currentRoom.transform;
             MapController.instances.beginRoom(currentRoom);
 
         }
     }
 
-    public CinemachineVirtualCamera Cinemachine { get => cinemachine; set => cinemachine = value; }
 
     private void Awake()
     {
         if (instance == null) instance = this;
-    }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            CurrentRoom.Status = STATUS_ROOM.IS_CLEAN;
-        }
+        player.transform.GetChild(0).gameObject.SetActive(false);
+        loading.SetActive(true);
+        player.gameObject.SetActive(false);
     }
 
     internal void begin(List<Room> finishRooms)
     {
         print("Start game");
+        loading.SetActive(false);
+
+        player.gameObject.SetActive(true);
+        player.transform.GetChild(0).gameObject.SetActive(true);
         // config danh sach phong va phong duoc chon
         Rooms = finishRooms;
         player.transform.position = CurrentRoom.transform.position;
         spirit.transform.position = CurrentRoom.transform.position+ (Vector3)Vector2.up;
 
         // thiet lap chi cinemachine
-        Cinemachine.Follow = player.transform;
+        movingCam.Target = player.transform;
     }
     public void switchRoom(Room nextRoom, Door currentDoor) {
         Door nextDoor = nextRoom.pickDoor(RoomUtils.OP_DIR(currentDoor.Direction));
@@ -81,6 +91,6 @@ public class DemoMap : MonoBehaviour
         Player.Player.instance.Spirit.switchRoom(pos + new Vector2(0,0.2f));
         Player.Player.instance.transform.position = pos;
 
-        Cinemachine.Follow = player.transform;
+        movingCam.Target = player.transform;
     }
 }

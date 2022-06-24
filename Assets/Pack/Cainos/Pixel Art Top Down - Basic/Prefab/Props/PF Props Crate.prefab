@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2577585254963922479}
   m_Layer: 20
   m_Name: PF Props Crate
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2041450837694329499}
   - component: {fileID: 1360094567658085774}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door_colider_Up
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,9 +67,9 @@ GameObject:
   m_Component:
   - component: {fileID: 687607825599653650}
   - component: {fileID: 8351441662736409448}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door_colider_Ri
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,9 +131,9 @@ GameObject:
   - component: {fileID: 5125500626959956408}
   - component: {fileID: 741136493563006190}
   - component: {fileID: 3087255845443093785}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall_colider
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,8 +148,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4464570170804491267}
+  m_Children: []
   m_Father: {fileID: 2753139208763543718}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -599,67 +598,6 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!1 &651945506328814996
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4464570170804491267}
-  - component: {fileID: 5046159281826955391}
-  m_Layer: 0
-  m_Name: boundCinemachine
-  m_TagString: BoundCinemachine
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4464570170804491267
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 651945506328814996}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1635405572899953404}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &5046159281826955391
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 651945506328814996}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.72670496, y: 10.004678}
-      - {x: -9.994515, y: 9.994768}
-      - {x: -9.9851465, y: -13.9927}
-      - {x: 8.013004, y: -13.975396}
-      - {x: 7.989463, y: 10.013757}
 --- !u!1 &911463210075663740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1450,8 +1388,8 @@ MonoBehaviour:
   furnitures:
   - {fileID: 4953751112004945478, guid: afc903ef52f63ae4ebe1d81fae1644fd, type: 3}
   - {fileID: 8192661661486039724, guid: 57f2dffb84042ad4ea2ea07af81d2d5f, type: 3}
-  cinemachineBound: {fileID: 5046159281826955391}
-  sizeEnemies: 1
+  cinemachineBound: {fileID: 0}
+  sizeEnemies: 2
 --- !u!114 &4050935986547373867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4997,9 +4935,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4599469051326578667}
   - component: {fileID: 5752381083077102889}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door_colider_Le
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6623,9 +6561,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4907462453400518090}
   - component: {fileID: 1301014336995078581}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Door_colider_Do
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -10,6 +10,10 @@ TagManager:
   - Spirit
   - MyBullet
   - BoundCinemachine
+  - Map
+  - Player_pivot
+  - EnemyBullet
+  - Effection
   layers:
   - Default
   - TransparentFX

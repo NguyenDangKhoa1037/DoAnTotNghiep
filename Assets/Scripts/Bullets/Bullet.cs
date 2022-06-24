@@ -49,7 +49,7 @@ namespace Player {
         [Header("Information")]
         [SerializeField] protected float speed;
         [SerializeField] protected int damage;
-
+       
 
         protected Player player;
         // TOA DO HOAC HUONG MA VIEN DAN DUOC NHAM DEN
@@ -65,7 +65,7 @@ namespace Player {
 
         }
 
-        public abstract void startMove(Vector2 target);
+        public abstract void startMove(Vector2 direction);
 
     }
 }

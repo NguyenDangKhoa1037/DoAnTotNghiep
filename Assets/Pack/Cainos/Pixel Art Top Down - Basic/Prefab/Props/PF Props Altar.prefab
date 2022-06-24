@@ -292,10 +292,10 @@ GameObject:
   - component: {fileID: 7947911505737750450}
   - component: {fileID: 5997224648939805555}
   - component: {fileID: 2440844624711060802}
-  - component: {fileID: 7888349535029418113}
+  - component: {fileID: 4396209928848251321}
   m_Layer: 20
   m_Name: PF Props Altar
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -411,7 +411,7 @@ MonoBehaviour:
   - {fileID: 6868958710751573116}
   - {fileID: 2128395779313173791}
   lerpSpeed: 3
---- !u!60 &7888349535029418113
+--- !u!60 &4396209928848251321
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
