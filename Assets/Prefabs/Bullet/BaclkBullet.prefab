@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 12
-  damage: 10
+  damage: 50
   offsetWhenFly: {x: 0, y: -0.6}
   defaultOffset: {x: 0, y: -0.11}
   shadow: {fileID: 1770607915}

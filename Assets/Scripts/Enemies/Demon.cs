@@ -168,12 +168,12 @@ public class Demon : Enemy.Enemy
             player.getDamaged(Damage);
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("MyBullet"))
-        {
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if(collision.CompareTag("MyBullet"))
+    //    {
           
-            Hp -= Player.Player.instance.dame();
-        }
-    }
+    //        Hp -= Player.Player.instance.dame();
+    //    }
+    //}
 }

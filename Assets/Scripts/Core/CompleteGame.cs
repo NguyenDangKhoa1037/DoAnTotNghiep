@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CompleteGame : MonoBehaviour
 {
@@ -19,5 +20,6 @@ public class CompleteGame : MonoBehaviour
     public void nextLevel()
     {
         DemoMap.instance.nextLevel();
+        SceneManager.LoadScene("playScene");
     }
 }

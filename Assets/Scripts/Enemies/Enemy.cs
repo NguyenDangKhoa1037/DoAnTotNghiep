@@ -87,7 +87,7 @@ namespace Enemy
             GameObject effect = Instantiate(effectOnDead,transform.position,Quaternion.identity);
             configColorEffect(effect);
             ShakeCamera.instance.shake();
-            myRoom.Enemies.Remove(this);
+            if (myRoom == null) print("null");
             myRoom.destroyEnemy(this);
             Destroy(gameObject);
         }
@@ -106,7 +106,7 @@ namespace Enemy
         }
 
         virtual protected void OnGetDamaged(GameObject bullet) {
-            int damage = player.attack();
+            int damage = player.dame();
             getDamaged(damage);
             Destroy(bullet);
         }

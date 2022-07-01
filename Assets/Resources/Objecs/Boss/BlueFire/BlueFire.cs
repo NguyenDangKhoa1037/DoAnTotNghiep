@@ -70,7 +70,11 @@ public class BlueFire : Enemy.Enemy
             }
         }
     }
-
+    protected override void OnDead()
+    {
+        base.OnDead();
+        CompleteGame.instance.complete();
+    }
 
 
     private void Awake()

@@ -72,8 +72,9 @@ public class RandomEnemies : MonoBehaviour
             isCounting = true;
         }
         else {
-            int index = Random.Range(0, 2);
+            int index = GameInfo.instance.Level - 1;
             Enemy.Enemy boss=  Instantiate(bosses[index], currentRoom.transform.position, Quaternion.identity);
+            boss.OnInited(currentRoom);
             currentRoom.Enemies.Add(boss);
         }
     }

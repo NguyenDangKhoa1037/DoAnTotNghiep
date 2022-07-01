@@ -931,7 +931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637bba9ee91a21248bb6b89cd28e5853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRoom: 5
+  numberOfRoom: 7
   templates:
   - {fileID: 4895244209362231074, guid: ca580a301369aab4faf0c846c64f983a, type: 3}
   - {fileID: 3366923378851522649, guid: 4bcf9a7c288209e448374baceb25a67f, type: 3}
@@ -1985,11 +1985,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4323959061646699038, guid: f672a365cd7cf23469ba42b1a1b9a26c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4323959061646699038, guid: f672a365cd7cf23469ba42b1a1b9a26c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4323959061646699038, guid: f672a365cd7cf23469ba42b1a1b9a26c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2059,11 +2059,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8457183057071700255, guid: 57f056a48a3a125409a576d748620542, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8457183057071700255, guid: 57f056a48a3a125409a576d748620542, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8457183057071700255, guid: 57f056a48a3a125409a576d748620542, type: 3}
       propertyPath: m_LocalPosition.z
